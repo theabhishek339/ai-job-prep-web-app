@@ -120,4 +120,4 @@ npm run dev
 
 Once Vite finishes compiling, it will display a local development URL in the terminal (typically **http://localhost:5173**).
 
-Open the URL in your browser to start using the **AI Mock Interview Simulator**.
+Open the URL in your browser to start using the **🚀 AI JOB PREP WEB APP 🚀**.
