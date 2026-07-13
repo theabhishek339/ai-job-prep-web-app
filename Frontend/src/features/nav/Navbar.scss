@@ -1,0 +1,114 @@
+// components/Navbar.scss
+
+$primary-color: #e2185b;
+
+.navbar-dock-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  padding-top: 0; // Sits flush against the top window boundary
+}
+
+.app-navbar-dock {
+  margin-top: 15px;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 3.5rem 2rem 3.5rem; // Extended bottom padding to account for the arc depth
+  
+  // High-fidelity glassmorphism dock base
+  background: rgba(19, 26, 38, 0.65);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  
+  // Custom structural arc cut onto the bottom edge
+  // Using path: starts top-left, moves to top-right, goes down, sweeps smoothly across the center bottom, and closes.
+  clip-path: path("M 0 0 L 100% 0 L 100% 75% Q 50% 105% 0 75% Z");
+  
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  
+  .navbar-brand {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    .logo-spark {
+      color: $primary-color;
+      font-size: 1.4rem;
+      animation: pulseSparkle 3s ease-in-out infinite;
+    }
+  }
+
+  .navbar-tabs {
+    display: flex;
+    gap: 2.25rem;
+    padding-bottom: 0.25rem; // Raises items slightly above the arc falloff
+
+    .tab-item {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      padding: 0.5rem 0.25rem;
+
+      &:hover {
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      &.active {
+        color: #ffffff;
+        text-shadow: 0 0 12px rgba($primary-color, 0.4);
+      }
+
+      // Smooth minimalist indicator for active state instead of rigid line
+      &.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background: $primary-color;
+        border-radius: 50%;
+        box-shadow: 0 0 8px $primary-color;
+      }
+    }
+  }
+}
+
+// Subtle structural shadow element to anchor the floating arced dock
+.dock-shadow-injector {
+  position: absolute;
+  top: 0;
+  width: 90%;
+  max-width: 1200px;
+  height: 4.5rem;
+  background: radial-gradient(50% 100% at 50% 100%, rgba($primary-color, 0.08) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 4px $primary-color); }
+}
